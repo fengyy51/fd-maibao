@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binwang.frontOfBinwang.activity.dao.IActDAO">
+    <select id="getNotice" resultType="com.binwang.frontOfBinwang.activity.bean.NoticeModel">
+        SELECT id,content,pub_date as pubDate FROM notice ORDER BY pub_date DESC limit 5
+    </select>
+    <select id="getDetail" resultType="com.binwang.frontOfBinwang.activity.bean.ActModel">
+        SELECT id,broad_cast_img as topImg,name as title,limit_num as limitNumber,
+         begin as startActivityTime, end as endActivityTime,reg_dead_line as endSignTime,
+         loc_about as address,cost as price,face_obj as faceObj,username FROM activity WHERE id = #{actId}
+    </select>
+    <select id="getRegItem" resultType="com.binwang.frontOfBinwang.activity.bean.RegItemModel">
+        SELECT id,username,reg,reg_item as regItem,name as title,reg_dead_line as regDeadLine,description FROM activity WHERE id=#{actId}
+    </select>
+    <select id="getDetailReg" resultType="com.binwang.frontOfBinwang.activity.bean.DetailItemModel">
+        SELECT id,title,dtype,ifneed,options,username FROM reg_item WHERE username=#{username}
+    </select>
+    <insert id="addFree" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO f_user_act (open_id,act_id,charge_type,status,is_sign,reg_item,credential_code,mod_time,add_time) VALUES(#{openId},#{actId},#{chargeType},
+        #{status},#{isSign},#{postReg},#{credentialCode},unix_timestamp(), unix_timestamp())
+    </insert>
+
+</mapper>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.binwang.frontOfBinwang.luckDraw.dao.LuckDrawDAO">
+    <insert id="insertWinInfo" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into f_user_prize (open_id,relation_id,act_name,prize_id,code,is_use,mod_time,add_time)
+        values(#{openId},#{relationId},#{actName},#{prizeId},#{code},#{isUse},unix_timestamp(),unix_timestamp())
+    </insert>
+</mapper>

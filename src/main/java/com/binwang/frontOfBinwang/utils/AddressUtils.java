@@ -1,4 +1,5 @@
-package com.binwang.util;
+package com.binwang.frontOfBinwang.utils;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 /**
  * 根据IP地址获取详细的地域信息
  * @author Lwl
@@ -196,20 +198,20 @@ public class AddressUtils {
         return outBuffer.toString();
     }
     // 测试
-    public static void main(String[] args) {
-        AddressUtils addressUtils = new AddressUtils();
-        // 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
-        String ip = "125.70.11.136";
-        String address = "";
-        try {
-            address = addressUtils.getAddresses("ip="+ip, "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println(address);
-        // 输出结果为：广东省,广州市,越秀区
-    }
+//    public static void main(String[] args) {
+//        AddressUtils addressUtils = new AddressUtils();
+//        // 测试ip 219.136.134.157 中国=华南=广东省=广州市=越秀区=电信
+//        String ip = "125.70.11.136";
+//        String address = "";
+//        try {
+//            address = addressUtils.getAddresses("ip="+ip, "utf-8");
+//        } catch (UnsupportedEncodingException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        System.out.println(address);
+//        // 输出结果为：广东省,广州市,越秀区
+//    }
 
 
 }

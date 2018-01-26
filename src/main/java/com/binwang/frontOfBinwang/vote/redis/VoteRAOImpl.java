@@ -93,8 +93,10 @@ public class VoteRAOImpl extends RedisFather implements VoteRAO {
     }
     @Override
     public int getVoteNum(String openId,long actId){
+        System.out.println("ss");
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
         String key = VOTE_TIME_PRE + openId+String.valueOf(actId);
+        System.out.println(redisTemplate.hasKey(key));
         if (redisTemplate.hasKey(key)) {
             int newTime = Integer.parseInt(ops.get(key));
             return newTime;

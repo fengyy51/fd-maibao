@@ -17,7 +17,7 @@ public interface VoteService {
     VoteParam getVoteParam(long actId);
     List<VoteInfo> getVoteInfo(long actId);
     List<ProductInfo> getProductInfo(long actId);
-    Map<String,Object> postInfo(String str,long actId,String ip,String userAgent);
+    Map<String,Object> postInfo(String str,long actId,String ip,String address,String userAgent);
     int add(long id,String str);
 
 }

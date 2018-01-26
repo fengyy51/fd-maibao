@@ -1,6 +1,7 @@
 package com.binwang.frontOfBinwang.vote.controller;
 
 import com.binwang.frontOfBinwang.utils.ResponseUtil;
+import com.binwang.frontOfBinwang.utils.AddressUtils;
 import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
 import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
 import com.binwang.frontOfBinwang.vote.bean.VoteParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,7 @@ public class VoteController {
 
     @Resource
     private VoteService voteService;
+
 
     @Value("${fbinwang.vote.post.tokens}")
     private int voteTokens;
@@ -106,14 +109,25 @@ public class VoteController {
 //                    mm.put("msg", "投票已截止");
 //                    return ResponseUtil.okJSON(mm);
 //                } else {
-                    String ip = req.getRemoteAddr();
-                    String userAgent = req.getHeader("user-agent");
-                    Map<String, Object> m = voteService.postInfo(str,actId,ip, userAgent);
-                    return ResponseUtil.okJSON(m);
-//                }
+                String ip = req.getRemoteAddr();
+                ip="113.26.242.239";
+                System.out.println(ip);
+                String userAgent = req.getHeader("user-agent");
+                String address = "";
+                try {
+                    address = new AddressUtils().getAddresses("ip="+ip, "utf-8");
+                    System.out.println(address);
+                } catch (UnsupportedEncodingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                System.out.println(address);
+                Map<String, Object> m = voteService.postInfo(str, actId, ip, address, userAgent);
+                return ResponseUtil.okJSON(m);
             }
         } catch (Exception e) {
             return ResponseUtil.errorJSON("数据提交失败");
         }
     }
+
 }

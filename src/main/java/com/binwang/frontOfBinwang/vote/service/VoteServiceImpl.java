@@ -8,6 +8,8 @@ import com.binwang.frontOfBinwang.vote.bean.VoteParam;
 import com.binwang.frontOfBinwang.vote.bean.VoteRecord;
 import com.binwang.frontOfBinwang.vote.dao.VoteDao;
 import com.binwang.frontOfBinwang.vote.redis.VoteRAO;
+import com.binwang.frontOfBinwang.utils.AddressUtils;
+import com.sun.jndi.cosnaming.IiopUrl;
 import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,6 +39,7 @@ public class VoteServiceImpl implements VoteService {
     @Resource
     private VoteRAO voteRAO;
 
+    private AddressUtils addressUtils;
     //写记录线程 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。
     private final ExecutorService writeVoteRecordPool = Executors.newFixedThreadPool(8);
 
@@ -67,6 +71,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     @Transactional
     public int getVoteNum(long actId,String openId){
+        System.out.println(actId);
         return voteRAO.getVoteNum(openId,actId);
 //        return voteDAO.getVoteNum(actId,openId);
     }
@@ -77,7 +82,7 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional
-    public Map<String, Object> postInfo(String str, long actId,String ip,String userAgent) {
+    public Map<String, Object> postInfo(String str, long actId,String ip,String address,String userAgent) {
         String[] s = str.split("@@@");
         long jsCurTime = Long.parseLong(s[1]);
         String openId = s[2];
@@ -116,7 +121,9 @@ public class VoteServiceImpl implements VoteService {
             return m;
         }
 
-        VoteRecord vr = new VoteRecord(actId,openId,ip,"," + s[0],userAgent);
+
+        VoteRecord vr = new VoteRecord(actId,openId,ip,"," + s[0],userAgent,address);
+        System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
         String[] a = s[0].split(",");
         List<String> b = java.util.Arrays.asList(a);

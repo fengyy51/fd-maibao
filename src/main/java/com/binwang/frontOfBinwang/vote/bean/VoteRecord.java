@@ -9,16 +9,18 @@ public class VoteRecord {
     private String ip;
     private String record;
     private String userAgent;
+    private String address;//由ip获取的地址
 
     public VoteRecord() {
     }
 
-    public VoteRecord(Long actId,String openId,String ip, String record, String userAgent) {
+    public VoteRecord(Long actId,String openId,String ip, String record, String userAgent,String address) {
         this.actId=actId;
         this.openId=openId;
         this.ip = ip;
         this.record = record;
         this.userAgent = userAgent;
+        this.address=address;
     }
 
     public String getUserAgent() {
@@ -59,5 +61,13 @@ public class VoteRecord {
 
     public String getOpenId() {
         return openId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

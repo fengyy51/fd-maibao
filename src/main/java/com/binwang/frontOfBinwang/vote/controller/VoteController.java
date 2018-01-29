@@ -110,18 +110,17 @@ public class VoteController {
 //                    return ResponseUtil.okJSON(mm);
 //                } else {
                 String ip = req.getRemoteAddr();
-                ip="113.26.242.239";
-                System.out.println(ip);
+//                ip="113.26.242.239";
                 String userAgent = req.getHeader("user-agent");
                 String address = "";
                 try {
                     address = new AddressUtils().getAddresses("ip="+ip, "utf-8");
-                    System.out.println(address);
+//                    System.out.println(address);
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                System.out.println(address);
+//                System.out.println(address);
                 Map<String, Object> m = voteService.postInfo(str, actId, ip, address, userAgent);
                 return ResponseUtil.okJSON(m);
             }

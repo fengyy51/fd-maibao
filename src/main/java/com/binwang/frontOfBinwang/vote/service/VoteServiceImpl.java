@@ -125,6 +125,7 @@ public class VoteServiceImpl implements VoteService {
         VoteRecord vr = new VoteRecord(actId,openId,ip,"," + s[0],userAgent,address);
         System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
+//        System.out.println("ss");
         String[] a = s[0].split(",");
         List<String> b = java.util.Arrays.asList(a);
         List<Integer> list = new ArrayList<Integer>();
@@ -132,9 +133,10 @@ public class VoteServiceImpl implements VoteService {
             list.add(Integer.parseInt(it.next()));
         }
         for (Integer i : list) {
-//            LOGGER.info(String.valueOf(i));
+            LOGGER.info(String.valueOf(i));
             int res = voteDAO.setVoteNum(i,actId);
-//            LOGGER.info(String.valueOf(res));
+
+            LOGGER.info(String.valueOf(res));
             if (res <= 0) {
                 LOGGER.error("投票计数出错，itemId：" + i);
                 throw new RuntimeException("出错");

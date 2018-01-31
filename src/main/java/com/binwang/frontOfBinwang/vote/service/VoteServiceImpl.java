@@ -151,8 +151,8 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional
-    public List<VoteInfo> getVoteInfo( long actId) {
-        List<VoteInfo> l = voteDAO.getVoteInfo(actId);
+    public List<MaiBaoVoteInfo> getVoteInfo( long actId) {
+        List<MaiBaoVoteInfo> l = voteDAO.getVoteInfo(actId);
 //        List<VoteInfo> newL = new ArrayList<>();
 //        for (VoteInfo v : l) {
 //            if (StringUtils.isEmpty(v.getProductFirst())) {

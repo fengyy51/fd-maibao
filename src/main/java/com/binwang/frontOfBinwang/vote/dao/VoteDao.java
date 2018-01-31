@@ -19,14 +19,17 @@ public interface VoteDao {
     int getVoteNum(@Param("actId")long actId,@Param("openId")String openId);
     @Select("select act_name as actName,begin,end,pro_num as proNum,vote_num as voteNum,share_num as shareNum,vote_max_num as voteMaxNum,vote_decoration as voteDecoration,pro_approved as proApproved from vote_params where act_id=#{actId}")
     VoteParam getVoteParam(@Param("actId")long actId);
-    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.reg_item as productInfo from f_vote a,f_user_act b where  a.item_id=b.id and a.act_id=#{actId} and b.is_ok = 1 order by a.vote_num DESC")
-    List<VoteInfo> getVoteInfo(@Param("actId")long actId);
+    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.name as name,b.image as img from f_vote a left join scratch_api_production b on b.id in(select c.production_id from scratch_api_galleryproduction c where c.id=a.item_id ) where  a.act_id=#{actId} order by a.vote_num DESC")
+    List<MaiBaoVoteInfo> getVoteInfo(@Param("actId")long actId);
+//    麦宝修改
+//    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.reg_item as productInfo from f_vote a,f_user_act b where  a.item_id=b.id and a.act_id=#{actId} and b.is_ok = 1 order by a.vote_num DESC")
+//    List<VoteInfo> getVoteInfo(@Param("actId")long actId);
 
 //    @Select("select id,reg_item as productInfo from f_user_act where act_id=#{actId} and is_ok=1")
 //    List<ProductInfo> getProductInfo(@Param("actId")long actId);
 //    麦宝修改
 //    @Select("select b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id=c8d29756ce4d4e72900dcee34b3b6925 and a.admin_checked=1")
-    @Select("select b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id='c8d29756ce4d4e72900dcee34b3b6925' and a.admin_checked=1")
+    @Select("select a.id as id,b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id='c8d29756ce4d4e72900dcee34b3b6925' and a.admin_checked=1")
 //    @Select("select id as proId,name, image as img,author_id as author,description from scratch_api_production")
     List<MaiBaoInfo> getProductInfo(@Param("actId")long actId);
     @Insert("INSERT INTO f_vote (item_id,act_id,vote_num) VALUES(#{itemId},#{actId},1) ON DUPLICATE KEY UPDATE " +

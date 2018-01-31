@@ -2,18 +2,20 @@ package com.binwang.frontOfBinwang.vote.bean;
 
 public class MaiBaoInfo
 {
-    private String proId;
+    private int id;//作品唯一标识
+    private String proId;//prodution id
     private String name;
     private String author;
     private String description;
     private String img;
     public MaiBaoInfo(){}
-    public MaiBaoInfo(String proId,String name,String author,String description,String img){
+    public MaiBaoInfo(int id,String proId,String name,String author,String description,String img){
         this.proId=proId;
         this.name=name;
         this.author=author;
         this.description=description;
         this.img=img;
+        this.id=id;
     }
 
     public void setName(String name) {
@@ -54,5 +56,13 @@ public class MaiBaoInfo
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

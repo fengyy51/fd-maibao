@@ -2,10 +2,7 @@ package com.binwang.frontOfBinwang.vote.controller;
 
 import com.binwang.frontOfBinwang.utils.ResponseUtil;
 import com.binwang.frontOfBinwang.utils.AddressUtils;
-import com.binwang.frontOfBinwang.vote.bean.MaiBaoInfo;
-import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteParam;
+import com.binwang.frontOfBinwang.vote.bean.*;
 import com.binwang.frontOfBinwang.vote.service.VoteService;
 import com.google.common.util.concurrent.RateLimiter;
 import org.apache.ibatis.annotations.Param;
@@ -105,7 +102,7 @@ public class VoteController {
     @ResponseBody
     public Object getVoteNumInfo(@Param("actId") long actId) {
         try {
-            List<VoteInfo> res = voteService.getVoteInfo(actId);
+            List<MaiBaoVoteInfo> res = voteService.getVoteInfo(actId);
             return ResponseUtil.okJSON(res);
         } catch (Exception e) {
             LOGGER.error("获取投票初始数据出错");

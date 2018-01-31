@@ -1,9 +1,6 @@
 package com.binwang.frontOfBinwang.vote.service;
 
-import com.binwang.frontOfBinwang.vote.bean.MaiBaoInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
-import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteParam;
+import com.binwang.frontOfBinwang.vote.bean.*;
 
 
 import java.util.List;
@@ -16,7 +13,8 @@ public interface VoteService {
     //获取每个用户当天投票数
     int getVoteNum(long actId,String openId);
     VoteParam getVoteParam(long actId);
-    List<VoteInfo> getVoteInfo(long actId);
+    List<MaiBaoVoteInfo> getVoteInfo(long actId);
+//    List<VoteInfo> getVoteInfo(long actId);
 //    List<ProductInfo> getProductInfo(long actId);
 //    麦宝修改
     List<MaiBaoInfo> getProductInfo(long actId);

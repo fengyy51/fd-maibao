@@ -41,6 +41,6 @@ public interface VoteDao {
 
     @Insert("INSERT INTO f_user_vote (ip,addtime,record,user_agent) VALUES(#{ip},unix_timestamp(),#{record},#{userAgent})")
     void insertVoteRecord(VoteRecord voteRecord);
-    @Insert("INSERT INTO f_user_vote (act_id,open_id,ip,addtime,record,user_agent,address) VALUES(#{actId},#{openId},#{ip},unix_timestamp(),#{record},#{userAgent},#{address})")
+    @Insert("INSERT INTO f_user_vote (act_id,ip,addtime,record,user_agent,address) VALUES(#{actId},#{ip},unix_timestamp(),#{record},#{userAgent},#{address})")
     void insertUserVote(VoteRecord voteRecord);
 }

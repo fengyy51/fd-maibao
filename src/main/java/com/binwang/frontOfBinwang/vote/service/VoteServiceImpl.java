@@ -87,14 +87,14 @@ public class VoteServiceImpl implements VoteService {
     public Map<String, Object> postInfo(String str, long actId,String ip,String address,String userAgent) {
         String[] s = str.split("@@@");
         long jsCurTime = Long.parseLong(s[1]);
-        String openId = s[2];
+//        String openId = s[2];
         Map<String, Object> m = new HashMap<>();
         //授权每日限制
-        if(StringUtils.isEmpty(openId)){
-            m.put("result",true);
-            m.put("msg","投票成功");
-            return m;
-        }
+//        if(StringUtils.isEmpty(openId)){
+//            m.put("result",true);
+//            m.put("msg","投票成功");
+//            return m;
+//        }
         //ip限制开始
         VoteParam voteParam=voteDAO.getVoteParam(actId);
         int voteMaxNum=voteParam.getVoteMaxNum();
@@ -105,11 +105,11 @@ public class VoteServiceImpl implements VoteService {
         }
         //ip限制结束
         //openId限制开始
-        if(!voteRAO.judgeIsVote(openId,voteMaxNum,actId)) {
-            m.put("result", false);
-            m.put("msg", "已投票");
-            return m;
-        }
+//        if(!voteRAO.judgeIsVote(openId,voteMaxNum,actId)) {
+//            m.put("result", false);
+//            m.put("msg", "已投票");
+//            return m;
+//        }
         //openid限制结束
 //        if(!voteRAO.judgeAuthOpenId(openId)){
 //            m.put("result", false);
@@ -124,7 +124,7 @@ public class VoteServiceImpl implements VoteService {
         }
 
 
-        VoteRecord vr = new VoteRecord(actId,openId,ip,"," + s[0],userAgent,address);
+        VoteRecord vr = new VoteRecord(actId,ip,"," + s[0],userAgent,address);
         System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
 //        System.out.println("ss");
@@ -143,7 +143,7 @@ public class VoteServiceImpl implements VoteService {
                 throw new RuntimeException("出错");
             }
         }
-        voteRAO.addVoteTime(openId,actId);
+//        voteRAO.addVoteTime(openId,actId);
         m.put("result", true);
         m.put("msg", "投票成功");
         return m;

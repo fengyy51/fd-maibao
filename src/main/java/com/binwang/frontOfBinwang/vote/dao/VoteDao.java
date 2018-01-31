@@ -1,9 +1,6 @@
 package com.binwang.frontOfBinwang.vote.dao;
 
-import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
-import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteParam;
-import com.binwang.frontOfBinwang.vote.bean.VoteRecord;
+import com.binwang.frontOfBinwang.vote.bean.*;
 import org.apache.ibatis.annotations.*;
 
 import org.springframework.stereotype.Repository;
@@ -25,9 +22,13 @@ public interface VoteDao {
     @Select("select a.vote_num as voteNum,a.item_id as itemId,b.reg_item as productInfo from f_vote a,f_user_act b where  a.item_id=b.id and a.act_id=#{actId} and b.is_ok = 1 order by a.vote_num DESC")
     List<VoteInfo> getVoteInfo(@Param("actId")long actId);
 
-    @Select("select id,reg_item as productInfo from f_user_act where act_id=#{actId} and is_ok=1")
-    List<ProductInfo> getProductInfo(@Param("actId")long actId);
-
+//    @Select("select id,reg_item as productInfo from f_user_act where act_id=#{actId} and is_ok=1")
+//    List<ProductInfo> getProductInfo(@Param("actId")long actId);
+//    麦宝修改
+//    @Select("select b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id=c8d29756ce4d4e72900dcee34b3b6925 and a.admin_checked=1")
+    @Select("select b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id='c8d29756ce4d4e72900dcee34b3b6925' and a.admin_checked=1")
+//    @Select("select id as proId,name, image as img,author_id as author,description from scratch_api_production")
+    List<MaiBaoInfo> getProductInfo(@Param("actId")long actId);
     @Insert("INSERT INTO f_vote (item_id,act_id,vote_num) VALUES(#{itemId},#{actId},1) ON DUPLICATE KEY UPDATE " +
             "vote_num=vote_num+1")
     int setVoteNum(@Param("itemId") int itemId,@Param("actId")long actId);

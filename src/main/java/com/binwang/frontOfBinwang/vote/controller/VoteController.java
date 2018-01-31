@@ -2,6 +2,7 @@ package com.binwang.frontOfBinwang.vote.controller;
 
 import com.binwang.frontOfBinwang.utils.ResponseUtil;
 import com.binwang.frontOfBinwang.utils.AddressUtils;
+import com.binwang.frontOfBinwang.vote.bean.MaiBaoInfo;
 import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
 import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
 import com.binwang.frontOfBinwang.vote.bean.VoteParam;
@@ -61,11 +62,31 @@ public class VoteController {
         return ResponseUtil.errorJSON("获取投票设置失败");
         }
     }
+//
+//    @RequestMapping("/get-vote-product-info")
+//    @ResponseBody
+//    public Object getProductInfo(@Param("actId") long actId) {
+//        try {
+//            List<ProductInfo> res = voteService.getProductInfo(actId);
+////            for (int i = 0; i < res.size(); i++) {
+////                if (res.get(i).getProductFirst().isEmpty()) {
+////                    String[] chrstr = res.get(i).getProductImgUrls().split("@@@");
+////                    res.get(i).setProductFirst(chrstr[0]);
+////                }
+////            }
+////            System.out.print("获取投票信息");
+//            return ResponseUtil.okJSON(res);
+//        } catch (Exception e) {
+//            LOGGER.error("获取商品初始数据出错");
+//            return ResponseUtil.errorJSON("获取基本信息失败");
+//        }
+//    }
+//    麦宝修改
     @RequestMapping("/get-vote-product-info")
     @ResponseBody
     public Object getProductInfo(@Param("actId") long actId) {
         try {
-            List<ProductInfo> res = voteService.getProductInfo(actId);
+            List<MaiBaoInfo> res = voteService.getProductInfo(actId);
 //            for (int i = 0; i < res.size(); i++) {
 //                if (res.get(i).getProductFirst().isEmpty()) {
 //                    String[] chrstr = res.get(i).getProductImgUrls().split("@@@");

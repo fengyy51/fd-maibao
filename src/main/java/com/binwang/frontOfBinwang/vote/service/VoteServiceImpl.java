@@ -2,10 +2,7 @@ package com.binwang.frontOfBinwang.vote.service;
 
 
 import com.binwang.frontOfBinwang.utils.HandleDateUtil;
-import com.binwang.frontOfBinwang.vote.bean.ProductInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteInfo;
-import com.binwang.frontOfBinwang.vote.bean.VoteParam;
-import com.binwang.frontOfBinwang.vote.bean.VoteRecord;
+import com.binwang.frontOfBinwang.vote.bean.*;
 import com.binwang.frontOfBinwang.vote.dao.VoteDao;
 import com.binwang.frontOfBinwang.vote.redis.VoteRAO;
 import com.binwang.frontOfBinwang.utils.AddressUtils;
@@ -75,8 +72,13 @@ public class VoteServiceImpl implements VoteService {
         return voteRAO.getVoteNum(openId,actId);
 //        return voteDAO.getVoteNum(actId,openId);
     }
+//    @Override
+//    public List<ProductInfo> getProductInfo(long actId) {
+//        return voteDAO.getProductInfo(actId);
+//    }
+    //麦宝修改
     @Override
-    public List<ProductInfo> getProductInfo(long actId) {
+    public List<MaiBaoInfo> getProductInfo(long actId) {
         return voteDAO.getProductInfo(actId);
     }
 
@@ -135,7 +137,6 @@ public class VoteServiceImpl implements VoteService {
         for (Integer i : list) {
             LOGGER.info(String.valueOf(i));
             int res = voteDAO.setVoteNum(i,actId);
-
             LOGGER.info(String.valueOf(res));
             if (res <= 0) {
                 LOGGER.error("投票计数出错，itemId：" + i);

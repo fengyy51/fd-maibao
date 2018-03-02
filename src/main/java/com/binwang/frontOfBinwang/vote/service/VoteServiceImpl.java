@@ -98,6 +98,8 @@ public class VoteServiceImpl implements VoteService {
         //ip限制开始
         VoteParam voteParam=voteDAO.getVoteParam(actId);
         int voteMaxNum=voteParam.getVoteMaxNum();
+        System.out.println(voteMaxNum+"maxnum");
+        System.out.println(ip);
         if(!voteRAO.judgeIpVote(ip,voteMaxNum,actId)) {
             m.put("result", false);
             m.put("msg", "已投票");
@@ -135,15 +137,16 @@ public class VoteServiceImpl implements VoteService {
             list.add(Integer.parseInt(it.next()));
         }
         for (Integer i : list) {
-            LOGGER.info(String.valueOf(i));
+            LOGGER.info("i"+String.valueOf(i));
+            LOGGER.info("actId"+String.valueOf(actId));
             int res = voteDAO.setVoteNum(i,actId);
-            LOGGER.info(String.valueOf(res));
+            LOGGER.info("res="+String.valueOf(res));
             if (res <= 0) {
                 LOGGER.error("投票计数出错，itemId：" + i);
                 throw new RuntimeException("出错");
             }
         }
-//        voteRAO.addVoteTime(openId,actId);
+        voteRAO.addVoteNum(ip,actId);
         m.put("result", true);
         m.put("msg", "投票成功");
         return m;

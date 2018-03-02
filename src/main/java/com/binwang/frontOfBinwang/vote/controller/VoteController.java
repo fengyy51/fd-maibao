@@ -112,13 +112,14 @@ public class VoteController {
 
 //    @Value("${fbinwang.vote.deadline}")
 //    private long voteDeadline;
-
+//结合redis实现ip投票次数限制
     @RequestMapping(value = "/post-vote-number-info", method = RequestMethod.POST)
     @ResponseBody
     public Object postVoteNumInfo(String str,long actId,HttpServletRequest req) {
         try {
             RateLimiter limiter = RateLimiter.create(voteTokens);
             if (!limiter.tryAcquire(1, TimeUnit.SECONDS)) {
+                System.out.printf("请稍后再试");
                 return ResponseUtil.errorJSON("请稍后再试");
             } else {
 //                if (System.currentTimeMillis() > voteDeadline) {
@@ -136,6 +137,7 @@ public class VoteController {
 //                    System.out.println(address);
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
+                    LOGGER.error(e.getMessage());
                     e.printStackTrace();
                 }
 //                System.out.println(address);
@@ -143,6 +145,8 @@ public class VoteController {
                 return ResponseUtil.okJSON(m);
             }
         } catch (Exception e) {
+            System.out.printf(e.getMessage());
+            LOGGER.error("数据提交失败");
             return ResponseUtil.errorJSON("数据提交失败");
         }
     }

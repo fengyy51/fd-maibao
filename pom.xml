@@ -23,6 +23,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <frontOfBinwang.name>frontOfBinwang</frontOfBinwang.name>
+        <docker.image.prefix>msg</docker.image.prefix>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -118,10 +120,25 @@
         </profile>
     </profiles>
 
-
     <build>
         <finalName>${frontOfBinwang.name}</finalName>
         <plugins>
+            <!--<plugin>-->
+                <!--<groupId>com.spotify</groupId>-->
+                <!--<artifactId>docker-maven-plugin</artifactId>-->
+                <!--<version>0.4.3</version>-->
+                <!--<configuration>-->
+                    <!--<imageName>${docker.image.prefix}/${project.artifactId}</imageName>-->
+                    <!--<dockerDirectory>src/main/docker</dockerDirectory>-->
+                    <!--<resources>-->
+                        <!--<resource>-->
+                            <!--<targetPath>/</targetPath>-->
+                            <!--<directory>${project.build.directory}</directory>-->
+                            <!--<include>${project.build.finalName}.jar</include>-->
+                        <!--</resource>-->
+                    <!--</resources>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

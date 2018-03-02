@@ -17,14 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by owen on 17/6/26.
+ * Created by yy on 17/6/26.
  */
 @Controller
 @RequestMapping("/act")
 public class ActivityController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ActivityController.class);
-
 
     @Resource
     private ActService actService;

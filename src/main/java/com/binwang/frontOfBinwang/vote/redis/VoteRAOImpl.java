@@ -53,12 +53,14 @@ public class VoteRAOImpl extends RedisFather implements VoteRAO {
         String key = VOTE_TIME_PRE + ip+String.valueOf(actId);
         if (redisTemplate.hasKey(key)) {
             int newTime = Integer.parseInt(ops.get(key));
+            LOGGER.info(String.valueOf(newTime)+"newtime");
             if (newTime <voteMax) {
                 return true;
             } else {
                 return false;
             }
         } else {
+            // 设置缓存时间 当天有效
             ops.set(key, 1 + "", (HandleDateUtil.getTimesnight() - System.currentTimeMillis()) / 1000, TimeUnit.SECONDS);
             return true;
         }
@@ -93,7 +95,7 @@ public class VoteRAOImpl extends RedisFather implements VoteRAO {
     }
     @Override
     public int getVoteNum(String openId,long actId){
-        System.out.println("ss");
+        System.out.println("getvotenum"+openId);
         ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
         String key = VOTE_TIME_PRE + openId+String.valueOf(actId);
         System.out.println(redisTemplate.hasKey(key));

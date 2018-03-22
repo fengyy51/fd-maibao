@@ -54,7 +54,7 @@ public class VoteRAOImpl extends RedisFather implements VoteRAO {
         if (redisTemplate.hasKey(key)) {
             int newTime = Integer.parseInt(ops.get(key));
             LOGGER.info(String.valueOf(newTime)+"newtime");
-            if (newTime <voteMax) {
+            if (newTime <=voteMax) {
                 return true;
             } else {
                 return false;
@@ -71,7 +71,7 @@ public class VoteRAOImpl extends RedisFather implements VoteRAO {
         String key = VOTE_TIME_PRE + openId+String.valueOf(actId);
         if (redisTemplate.hasKey(key)) {
             int newOpenIdTime = Integer.parseInt(ops.get(key));
-            if (newOpenIdTime <voteMaxNum) {
+            if (newOpenIdTime <=voteMaxNum) {
                 return true;
             } else {
                 return false;

@@ -5,7 +5,7 @@ package com.binwang.frontOfBinwang.vote.bean;
  */
 public class VoteRecord {
     private Long actId;
-//    private String openId;
+    private String openId;
     private String ip;
     private String record;
     private String userAgent;
@@ -14,9 +14,9 @@ public class VoteRecord {
     public VoteRecord() {
     }
 
-    public VoteRecord(Long actId,String ip, String record, String userAgent,String address) {
+    public VoteRecord(Long actId,String ip, String record, String userAgent,String address,String openId) {
         this.actId=actId;
-//        this.openId=openId;
+        this.openId=openId;
         this.ip = ip;
         this.record = record;
         this.userAgent = userAgent;
@@ -55,13 +55,13 @@ public class VoteRecord {
         return actId;
     }
 
-//    public void setOpenId(String openId) {
-//        this.openId = openId;
-//    }
-//
-//    public String getOpenId() {
-//        return openId;
-//    }
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
 
     public String getAddress() {
         return address;

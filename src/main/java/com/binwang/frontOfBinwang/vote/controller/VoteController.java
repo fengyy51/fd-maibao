@@ -112,7 +112,7 @@ public class VoteController {
 
 //    @Value("${fbinwang.vote.deadline}")
 //    private long voteDeadline;
-//结合redis实现ip投票次数限制
+//结合redis实现ip投票次数限制  以及openid限制
     @RequestMapping(value = "/post-vote-number-info", method = RequestMethod.POST)
     @ResponseBody
     public Object postVoteNumInfo(String str,long actId,HttpServletRequest req) {

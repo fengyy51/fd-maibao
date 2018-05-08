@@ -126,7 +126,7 @@ public class VoteServiceImpl implements VoteService {
         }
 
 
-        VoteRecord vr = new VoteRecord(actId,openId,ip,"," + s[0],userAgent,address);
+        VoteRecord vr = new VoteRecord(actId,ip,"," + s[0],userAgent,address,openId);
         System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
 //        System.out.println("ss");

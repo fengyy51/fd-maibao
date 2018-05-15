@@ -72,13 +72,22 @@ public class VoteServiceImpl implements VoteService {
         return voteRAO.getVoteNum(openId,actId);
 //        return voteDAO.getVoteNum(actId,openId);
     }
+    @Override
+    @Transactional
+    public long getVoteIndex(long actId){
+        return voteDAO.getVoteIndex(actId);
+    }
 //    @Override
 //    public List<ProductInfo> getProductInfo(long actId) {
 //        return voteDAO.getProductInfo(actId);
 //    }
     //麦宝修改
+//    @Override
+//    public List<MaiBaoInfo> getProductInfo(long actId) {
+//        return voteDAO.getProductInfo(actId);
+//    }
     @Override
-    public List<MaiBaoInfo> getProductInfo(long actId) {
+    public List<ProCommonInfo> getProductInfo(long actId) {
         return voteDAO.getProductInfo(actId);
     }
 

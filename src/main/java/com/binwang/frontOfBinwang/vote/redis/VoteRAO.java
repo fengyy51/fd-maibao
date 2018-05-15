@@ -14,4 +14,6 @@ public interface VoteRAO {
     void addVoteTime(String openId,long actId);
 
     int getVoteNum(String openId,long actId);
+
+
 }

@@ -59,6 +59,22 @@ public class VoteController {
         return ResponseUtil.errorJSON("获取投票设置失败");
         }
     }
+
+    @RequestMapping("/get-vote-index")
+    @ResponseBody
+    public Object getVoteIndex(@Param("actId")long actId){
+        try {
+            long res=voteService.getVoteIndex(actId);
+            return ResponseUtil.okJSON(res);
+        } catch (Exception e){
+            LOGGER.error(e.getMessage());
+            LOGGER.error("获取投票活动真正序号出错");
+            return ResponseUtil.errorJSON("获取投票活动真正序号失败");
+        }
+    }
+
+
+
 //
 //    @RequestMapping("/get-vote-product-info")
 //    @ResponseBody
@@ -83,7 +99,7 @@ public class VoteController {
     @ResponseBody
     public Object getProductInfo(@Param("actId") long actId) {
         try {
-            List<MaiBaoInfo> res = voteService.getProductInfo(actId);
+            List<ProCommonInfo> res = voteService.getProductInfo(actId);
 //            for (int i = 0; i < res.size(); i++) {
 //                if (res.get(i).getProductFirst().isEmpty()) {
 //                    String[] chrstr = res.get(i).getProductImgUrls().split("@@@");

@@ -19,6 +19,10 @@ public interface VoteDao {
     int getVoteNum(@Param("actId")long actId,@Param("openId")String openId);
     @Select("select act_name as actName,begin,end,pro_num as proNum,vote_num as voteNum,share_num as shareNum,vote_max_num as voteMaxNum,vote_decoration as voteDecoration,pro_approved as proApproved from vote_params where act_id=#{actId}")
     VoteParam getVoteParam(@Param("actId")long actId);
+
+    @Select("select id from vote_params where act_id=#{actId}")
+    long getVoteIndex(long actId);
+
     @Select("select a.vote_num as voteNum,a.item_id as itemId,b.name as name,b.image as img from f_vote a left join scratch_api_production b on b.id in(select c.production_id from scratch_api_galleryproduction c where c.id=a.item_id ) where  a.act_id=#{actId} order by a.vote_num DESC")
     List<MaiBaoVoteInfo> getVoteInfo(@Param("actId")long actId);
 //    麦宝修改
@@ -29,9 +33,12 @@ public interface VoteDao {
 //    List<ProductInfo> getProductInfo(@Param("actId")long actId);
 //    麦宝修改
 //    @Select("select b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id=c8d29756ce4d4e72900dcee34b3b6925 and a.admin_checked=1")
-    @Select("select a.id as id,b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id='c8d29756ce4d4e72900dcee34b3b6925' and a.admin_checked=1")
+//    @Select("select a.id as id,b.id as proId,b.name as name, b.image as img,b.author_id as author,b.description as description  from scratch_api_galleryproduction a left join scratch_api_production b on a.production_id=b.id where a.gallery_id='c8d29756ce4d4e72900dcee34b3b6925' and a.admin_checked=1")
 //    @Select("select id as proId,name, image as img,author_id as author,description from scratch_api_production")
-    List<MaiBaoInfo> getProductInfo(@Param("actId")long actId);
+//    List<MaiBaoInfo> getProductInfo(@Param("actId")long actId);
+    @Select("select id,content,img_url as imgUrl from vote_data_yiwu where act_id=#{actId}")
+    List<ProCommonInfo> getProductInfo(@Param("actId")long actId);
+
     @Insert("INSERT INTO f_vote (item_id,act_id,vote_num) VALUES(#{itemId},#{actId},1) ON DUPLICATE KEY UPDATE " +
             "vote_num=vote_num+1")
     int setVoteNum(@Param("itemId") int itemId,@Param("actId")long actId);

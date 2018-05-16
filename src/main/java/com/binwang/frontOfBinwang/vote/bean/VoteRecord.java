@@ -5,6 +5,8 @@ package com.binwang.frontOfBinwang.vote.bean;
  */
 public class VoteRecord {
     private Long actId;
+    private Long countShareFriend;
+    private Long countShareCircle;//此次投票分享朋友圈次数
     private String openId;
     private String ip;
     private String record;
@@ -14,13 +16,31 @@ public class VoteRecord {
     public VoteRecord() {
     }
 
-    public VoteRecord(Long actId,String ip, String record, String userAgent,String address,String openId) {
+    public VoteRecord(Long actId,Long countShareFriend,Long countShareCircle,String ip, String record, String userAgent,String address,String openId) {
         this.actId=actId;
+        this.countShareCircle=countShareCircle;
+        this.countShareFriend=countShareFriend;
         this.openId=openId;
         this.ip = ip;
         this.record = record;
         this.userAgent = userAgent;
         this.address=address;
+    }
+
+    public Long getCountShareCircle() {
+        return countShareCircle;
+    }
+
+    public Long getCountShareFriend() {
+        return countShareFriend;
+    }
+
+    public void setCountShareCircle(Long countShareCircle) {
+        this.countShareCircle = countShareCircle;
+    }
+
+    public void setCountShareFriend(Long countShareFriend) {
+        this.countShareFriend = countShareFriend;
     }
 
     public String getUserAgent() {

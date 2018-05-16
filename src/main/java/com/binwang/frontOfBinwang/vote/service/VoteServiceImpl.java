@@ -97,6 +97,8 @@ public class VoteServiceImpl implements VoteService {
         String[] s = str.split("@@@");
         long jsCurTime = Long.parseLong(s[1]);
         String openId = s[2];
+        Long countShareFriend=Long.parseLong(s[3]);
+        Long countShareCircle=Long.parseLong(s[4]);
         Map<String, Object> m = new HashMap<>();
         //授权每日限制
         if(StringUtils.isEmpty(openId)){
@@ -135,7 +137,7 @@ public class VoteServiceImpl implements VoteService {
         }
 
 
-        VoteRecord vr = new VoteRecord(actId,ip,"," + s[0],userAgent,address,openId);
+        VoteRecord vr = new VoteRecord(actId,countShareFriend,countShareCircle,ip,"," + s[0],userAgent,address,openId);
         System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
 //        System.out.println("ss");

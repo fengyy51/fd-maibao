@@ -22,10 +22,14 @@ public interface VoteDao {
 
     @Select("select id from vote_params where act_id=#{actId}")
     long getVoteIndex(long actId);
-
-    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.name as name,b.image as img from f_vote a left join scratch_api_production b on b.id in(select c.production_id from scratch_api_galleryproduction c where c.id=a.item_id ) where  a.act_id=#{actId} order by a.vote_num DESC")
+    //义乌信息采集再次修改
+    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.img_url as img from f_vote a ,vote_data_yiwu b  where a.item_id=b.id and a.act_id=#{actId} order by a.vote_num DESC")
     List<MaiBaoVoteInfo> getVoteInfo(@Param("actId")long actId);
-//    麦宝修改
+
+    //    麦宝修改
+//    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.name as name,b.image as img from f_vote a left join scratch_api_production b on b.id in(select c.production_id from scratch_api_galleryproduction c where c.id=a.item_id ) where  a.act_id=#{actId} order by a.vote_num DESC")
+//    List<MaiBaoVoteInfo> getVoteInfo(@Param("actId")long actId);
+//初始
 //    @Select("select a.vote_num as voteNum,a.item_id as itemId,b.reg_item as productInfo from f_vote a,f_user_act b where  a.item_id=b.id and a.act_id=#{actId} and b.is_ok = 1 order by a.vote_num DESC")
 //    List<VoteInfo> getVoteInfo(@Param("actId")long actId);
 
@@ -39,8 +43,8 @@ public interface VoteDao {
     @Select("select id,content,img_url as imgUrl from vote_data_yiwu where act_id=#{actId}")
     List<ProCommonInfo> getProductInfo(@Param("actId")long actId);
 
-    @Insert("INSERT INTO f_vote (item_id,act_id,vote_num) VALUES(#{itemId},#{actId},1) ON DUPLICATE KEY UPDATE " +
-            "vote_num=vote_num+1")
+    @Insert("INSERT INTO f_vote (item_id,act_id,vote_num) VALUES(#{itemId},#{actId},1)ON DUPLICATE KEY UPDATE "+
+    "vote_num=vote_num+1")
     int setVoteNum(@Param("itemId") int itemId,@Param("actId")long actId);
 
     @Update("UPDATE f_collect SET product_first=#{productFirst} WHERE id=#{id}")

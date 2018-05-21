@@ -114,13 +114,16 @@ public class VoteServiceImpl implements VoteService {
         if(!voteRAO.judgeIpVote(ip,voteMaxNum,actId)) {
             m.put("result", false);
             m.put("msg", "已投票");
+            LOGGER.info("ip"+m.toString());
             return m;
         }
+        LOGGER.info("openid限制开始");
         //ip限制结束
         //openId限制开始
         if(!voteRAO.judgeIsVote(openId,voteMaxNum,actId)) {
             m.put("result", false);
             m.put("msg", "已投票");
+            LOGGER.info("openid"+m.toString());
             return m;
         }
         //openid限制结束
@@ -129,19 +132,20 @@ public class VoteServiceImpl implements VoteService {
 //            m.put("msg", "openid不是有效值");
 //            return m;
 //        }
-
+        LOGGER.info("判断时间开始");
         if (jsCurTime < HandleDateUtil.getTimesmorning() || jsCurTime > HandleDateUtil.getTimesnight()) {
             m.put("result", false);
             m.put("msg", "请确保当日投票");
             return m;
         }
 
-
+        LOGGER.info("判断时间结束");
         VoteRecord vr = new VoteRecord(actId,countShareFriend,countShareCircle,ip,"," + s[0],userAgent,address,openId);
         System.out.println(address);
         writeVoteRecordPool.execute(new WriteVoteRecord(vr));
-//        System.out.println("ss");
+        System.out.println("投票分别增加个数");
         String[] a = s[0].split(",");
+        LOGGER.info(a.toString());
         List<String> b = java.util.Arrays.asList(a);
         List<Integer> list = new ArrayList<Integer>();
         for (Iterator<String> it = b.iterator(); it.hasNext(); ) {
@@ -157,10 +161,13 @@ public class VoteServiceImpl implements VoteService {
                 throw new RuntimeException("出错");
             }
         }
+        LOGGER.info("给openid增加票数");
         voteRAO.addVoteTime(openId,actId);
+        LOGGER.info("给ip增加票数");
         voteRAO.addVoteNum(ip,actId);
         m.put("result", true);
         m.put("msg", "投票成功");
+        LOGGER.info(m.toString());
         return m;
     }
 
